@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: transparent;
+      }
+      #logo {
+        position: fixed;
+        width: 120px;
+        height: 120px;
+        z-index: 9999;
+        pointer-events: none;
+        transition: all 0.6s ease;
+        filter: drop-shadow(0 0 8px #00f8b9) drop-shadow(0 0 16px #00f8b9);
+        animation: neon 1.5s ease-in-out infinite alternate;
+      }
+
+      /* Default: Bottom Right */
+      #logo {
+        bottom: 20px;
+        right: 20px;
+      }
+
+      /* In vehicle: Top Right */
+      body.in-vehicle #logo {
+        top: 20px;
+        right: 20px;
+        bottom: auto;
+      }
+
+      @keyframes neon {
+        from {
+          filter: drop-shadow(0 0 5px #00b88a) drop-shadow(0 0 12px #00b88a);
+        }
+        to {
+          filter: drop-shadow(0 0 12px #00b88a) drop-shadow(0 0 28px #00b88a)
+            drop-shadow(0 0 45px #00b88a);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <img id="logo" src="logo.png" alt="Logo" />
+
+    <script>
+      window.addEventListener("message", (event) => {
+        if (event.data.action === "showLogo") {
+          document.getElementById("logo").style.display = "block";
+        } else if (event.data.action === "inVehicle") {
+          document.body.classList.add("in-vehicle");
+        } else if (event.data.action === "onFoot") {
+          document.body.classList.remove("in-vehicle");
+        }
+      });
+    </script>
+  </body>
+</html>
