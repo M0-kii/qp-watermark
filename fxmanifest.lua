@@ -1,3 +1,4 @@
+shared_script '@EZAC/resource/include.lua'
 fx_version 'cerulean'
 game 'gta5'
 

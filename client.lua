@@ -1,15 +1,15 @@
 CreateThread(function()
     SendNUIMessage({ action = "showLogo" })
 
+    local wasInVehicle = nil
+
     while true do
         Wait(500)
-        local ped = PlayerPedId()
-        local vehicle = GetVehiclePedIsIn(ped, false)
+        local isInVehicle = GetVehiclePedIsIn(PlayerPedId(), false) ~= 0
 
-        if vehicle ~= 0 then
-            SendNUIMessage({ action = "inVehicle" })
-        else
-            SendNUIMessage({ action = "onFoot" })
+        if isInVehicle ~= wasInVehicle then
+            SendNUIMessage({ action = isInVehicle and "inVehicle" or "onFoot" })
+            wasInVehicle = isInVehicle
         end
     end
 end)
